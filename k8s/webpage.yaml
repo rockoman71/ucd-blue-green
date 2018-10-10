@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: bgdemo
-        image: mycluster.icp:8500/devops/ucdbgdemo:v1
+        image: mycluster.icp:8500/devops/bgdemo:v1
         resources:
           requests:
             cpu: 100m
