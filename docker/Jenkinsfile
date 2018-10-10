@@ -1,0 +1,17 @@
+node {
+
+    def image = 'mycluster.icp:8500/demo/sumapp'
+    def tag = '${env.BUILD_ID}'
+    
+	  stage('Build Docker image') {
+		container('docker') {
+		  
+      
+			sh "docker build -t ${image}:${tag} ."
+			sh "docker push ${image}:${tag}"
+			sh "docker tag ${image}:${tag} ${image}:latest"
+			sh "docker push ${image}:latest"
+		  
+		}
+	  }
+}
