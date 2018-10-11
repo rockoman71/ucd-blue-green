@@ -1,17 +1,23 @@
+
 node {
 
-    def image = 'mycluster.icp:8500/demo/sumapp'
-    def tag = '${env.BUILD_ID}'
-    
-	  stage('Build Docker image') {
-		container('docker') {
-		  
-      
-			sh "docker build -t ${image}:${tag} ."
-			sh "docker push ${image}:${tag}"
-			sh "docker tag ${image}:${tag} ${image}:latest"
-			sh "docker push ${image}:latest"
-		  
-		}
-	  }
+    dir("/root/"){
+    checkout scm
+    env.DOCKER_API_VERSION="1.23"
+    appName = "devops/bgdemo"
+    registryHost = "mycluster.icp:8500/"
+    imageName = "${registryHost}${appName}:${env.BUILD_ID}"
+    env.BUILDIMG=imageName
+    docker.withRegistry('https://mycluster.icp:8500/', 'docker'){
+    stage "Build"
+        def pcImg = docker.build("mycluster.icp:8500/default/flask-app:${env.BUILD_ID}", "-f docker/Dockerfile .")
+
+        sh "cp /root/.dockercfg ${HOME}/.dockercfg"
+
+        pcImg.push()
+ 
+     } 
+
+    }
+
 }
