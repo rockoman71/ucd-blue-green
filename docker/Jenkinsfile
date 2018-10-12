@@ -1,19 +1,31 @@
-node {
-    dir("/root/"){
-    checkout scm
+node { 
+    def app
+    def dockerRegistry = 'https://mycluster.icp:8500'
+    def image = 'devops/bgdemo'
+    def jenkinsCredentials = 'docker'
+    def gitRepo = "https://github.com/rockoman71/SumApp.git"
+    
+    stage('Get Source') {
+		   git gitRepo
+	  }
+    
+    stage('Build Maven project') {
+		  
+		  sh "mvn -B clean package"
+		  
+	  }
+    
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
 
-    env.DOCKER_API_VERSION="1.23"
-    appName = "devops/bgdemo"
-    registryHost = "mycluster.icp:8500/"
-    imageName = "${registryHost}${appName}:${env.BUILD_ID}"
-    env.BUILDIMG=imageName
-    docker.withRegistry('https://mycluster.icp:8500/', 'docker'){
-    stage "Build"
-
-        def pcImg = docker.build("mycluster.icp:8500/devops/bgdemo:${env.BUILD_ID}", "-f Dockerfile.ppc64le .")
-        sh "cp /root/.docker/config.json ${HOME}/.docker/config.json"
-        pcImg.push()
-     
-       }
+        app = docker.build(image)
     } 
+   
+    stage('Push image to ICP') {
+            docker.withRegistry(dockerRegistry,jenkinsCredentials) {
+	          app.push("${env.BUILD_NUMBER}")
+                  app.push("latest")
+	    }
+   }
 }
