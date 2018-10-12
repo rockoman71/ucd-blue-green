@@ -4,10 +4,12 @@ metadata:
   name: webpage-@color@
   labels:
     app: bgdemo
+    color: @color@
 spec:
   selector:
     matchLabels:
       app: bgdemo
+      color: @color@
   replicas: 1
   template:
     metadata:
