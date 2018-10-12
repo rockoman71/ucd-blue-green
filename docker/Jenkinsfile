@@ -13,7 +13,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build(image)
+        app = docker.build(image, "./docker/Dockerfile")
     } 
    
     stage('Push image to ICP') {
