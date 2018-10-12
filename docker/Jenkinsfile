@@ -8,13 +8,7 @@ node {
     stage('Get Source') {
 		   git gitRepo
 	  }
-    
-    stage('Build Maven project') {
-		  
-		  sh "mvn -B clean package"
-		  
-	  }
-    
+   
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
