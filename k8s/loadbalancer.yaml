@@ -8,4 +8,4 @@ spec:
   - port: 80
   selector:
     app: bgdemo
-    color: @colour@
+    color: blue
