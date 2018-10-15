@@ -29,5 +29,9 @@ spec:
           value: dns
         - name: NAME
           value: IIF
+        - name: backgroundcolor
+          value: @color@
+        - name: version
+          value @version@
         ports:
         - containerPort: 80
