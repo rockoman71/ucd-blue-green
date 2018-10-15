@@ -43,7 +43,7 @@ node {
 // pushVersion: Name to assign the component version. BUILD_NAME is resolved by Jenkins.
                 pushVersion: '${BUILD_NUMBER}',
 		baseDir: '.',
-                fileIncludePatterns: '',
+                fileIncludePatterns: 'README.md',
                 fileExcludePatterns: '',
 
 // pushProperties: Assign properties to the new component version. Syntax: KEY=VALUE separated by new lines.
