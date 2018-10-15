@@ -27,5 +27,7 @@ spec:
         env:
         - name: GET_HOSTS_FROM
           value: dns
+        - name: NAME
+          value: IIF
         ports:
         - containerPort: 80
