@@ -11,13 +11,11 @@ def hello():
            "<p><font size='10'>Hello {name}!!!!<br/></font></p>" \
            "<p><font size='6'><b>Hostname:</b> {hostname}<br/></font></p>" \
            "<p><font size='6'><b>Environment:</b> {env}<br/></font></p>" \
-           "<b>Version: {version}</b>" \
            "</body></html>"
     return html.format(name=os.getenv("NAME", "world"), 
                        hostname=socket.gethostname(), 
                        env=os.getenv("env", "Dev"), 
-                       backgroundcolor=os.getenv("backgroundcolor", "MintCream"),
-                       version=os.getenv("version", "n/a"))
+                       backgroundcolor=os.getenv("backgroundcolor", "MintCream"))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
