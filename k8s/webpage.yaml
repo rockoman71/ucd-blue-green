@@ -32,7 +32,7 @@ spec:
         - name: backgroundcolor
           value: @background-color@
         - name: version
-          value @version@
+          value: @version@
         - name: env
           value: @env@  
         ports:
