@@ -30,8 +30,10 @@ spec:
         - name: NAME
           value: IIF
         - name: backgroundcolor
-          value: @color@
+          value: @background-color@
         - name: version
           value @version@
+        - name: env
+          value @env@  
         ports:
         - containerPort: 80
