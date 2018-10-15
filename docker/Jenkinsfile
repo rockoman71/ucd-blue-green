@@ -12,7 +12,7 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        sh "sed 's/@ver@/${BUILD_NUMBER}/g' Dockerfile > Dockerfile2"
+        sh "sed \\'s/@ver@/${BUILD_NUMBER}/g\\' Dockerfile > Dockerfile2"
 	sh 'cp Dockerfile2 Dockerfile'    
         app = docker.build(image, "./docker")
     } 
