@@ -22,4 +22,34 @@ node {
                   app.push("latest")
 	    }
    }
+	
+   // class: Defines the Pipeline plug-in to define. The UCD Jenkins Pipeline plug-in’s class name is UCDeployPublisher
+   step([$class: 'UCDeployPublisher',
+
+// siteName: The name of the IBM UrbanCode Deploy server configured in Jenkins Configure System page.
+        siteName: 'ucd',
+
+// Specify actions to perform against a single component.
+        component: [
+            $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
+
+// componentName: Defines the name of the (new) component in IBM UrbanCode Deploy.
+            componentName: 'Blue-Green Demo-bgdemo',
+
+// delivery: Perform a component version import.
+            delivery: [
+                $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
+
+// pushVersion: Name to assign the component version. BUILD_NAME is resolved by Jenkins.
+                pushVersion: '${BUILD_NUMBER}',
+
+// pushProperties: Assign properties to the new component version. Syntax: KEY=VALUE separated by new lines.
+                pushProperties: 'dockerImageTag=${BUILD_NUMBER}\ndockerImageId=x',
+
+// pushDescription: Description to assign to the component version.
+                pushDescription: 'Pushed from Jenkins'
+            ]
+        ]
+    ])
+	
 }
