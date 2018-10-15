@@ -27,7 +27,10 @@ node {
    // class: Defines the Pipeline plug-in to define. The UCD Jenkins Pipeline plug-in’s class name is UCDeployPublisher
    step([$class: 'UCDeployPublisher',
         siteName: 'ucd',
-        delivery: [
+	component: [
+            $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
+           componentName: 'Blue-Green Demo-bgdemo',
+           delivery: [
                 $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
                 pushVersion: '${BUILD_NUMBER}',
 		baseDir: '.',
@@ -35,6 +38,7 @@ node {
                 fileExcludePatterns: '',
                 pushProperties: 'dockerImageTag=${BUILD_NUMBER}\ndockerImageId=x',
                 pushDescription: 'Pushed from Jenkins'
+	    ]	
 	]	
     ])
   }
