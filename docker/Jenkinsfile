@@ -53,6 +53,14 @@ node {
                 pushDescription: 'Pushed from Jenkins'
             ]
         ]
+      deploy: [
+            $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
+            deployApp: 'Jenkins',
+            deployEnv: 'Blue 1',
+            deployProc: 'Deploy Application from YAML',            
+            deployVersions: 'Blue-Green Demo-bgdemo:${BUILD_NUMBER}\nbgdemo Webpage:1.5',
+            deployOnlyChanged: false
+        ]
     ])
 	
 }
