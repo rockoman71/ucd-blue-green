@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webpage-@color@
+  name: webpage-@env@
   labels:
     app: bgdemo
-    color: @color@
+    env: @env@
 spec:
   selector:
     matchLabels:
       app: bgdemo
-      color: @color@
+      env: @env@
   replicas: 1
   template:
     metadata:
       labels:
         app: bgdemo
-        color: @color@
+        env: @env@
     spec:
       containers:
       - name: bgdemo
@@ -44,7 +44,7 @@ metadata:
   name: webpage-service
   labels:
     app: bgdemo
-    color: @color@
+    env: @env@
 spec:
   type: NodePort
   ports:
@@ -52,6 +52,6 @@ spec:
       targetPort: 80
   selector:
     app: bgdemo
-    color: @color@
+    env: @env@
 
 
