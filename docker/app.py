@@ -6,10 +6,18 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    html = "<h3>Hello {name}!!!!</h3>" \
-           "<p><font size='10'><b>Hostname:</b> {hostname}<br/></font></p>" \
-           "<b>Version:</b>"
-    return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname())
+    html = "<html><head><style>body { background-color: {backgroundcolor} <style>" \
+           "<title>IBM Demo DevOps</title></head><body>" \
+           "<p><font size='10'>Hello {name}!!!!<br/></font></p>" \
+           "<p><font size='6'><b>Hostname:</b> {hostname}<br/></font></p>" \
+           "<p><font size='6'><b>Environment:</b> {env}<br/></font></p>" \
+           "<b>Version: {version}</b>" \
+           "</body></html>"
+    return html.format(name=os.getenv("NAME", "world"), 
+                       hostname=socket.gethostname(), 
+                       env=os.getenv("env", "Dev"), 
+                       backgroundcolor=os.getenv("backgroundcolor", "MintCream"),
+                       version=os.getenv("version", "n/a"))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
