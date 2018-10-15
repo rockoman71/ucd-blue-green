@@ -6,8 +6,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    html = "<html><head><style>body { background-color: {backgroundcolor} <style>" \
-           "<title>IBM Demo DevOps</title></head><body>" \
+    html = "<html><head>" \
+           "<title>IBM Demo DevOps</title></head>" \
+           "<body style='background-color:{backgroundcolor};'>" \
            "<p><font size='10'>Hello {name}!!!!<br/></font></p>" \
            "<p><font size='6'><b>Hostname:</b> {hostname}<br/></font></p>" \
            "<p><font size='6'><b>Environment:</b> {env}<br/></font></p>" \
