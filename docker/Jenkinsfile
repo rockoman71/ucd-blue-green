@@ -53,7 +53,7 @@ stage('UrbanCode Deploy to Dev') {
                 deployEnv: 'Dev',
                 deployProc: 'Deploy Application from YAML',            
                 //deployVersions: 'Blue-Green Demo-bgdemo:${BUILD_NUMBER}\nbgdemo Webpage:2.2',
-		deployVersions: latest,
+		deployVersions: 'latest',
                 deployOnlyChanged: false
         ]		
     ])
