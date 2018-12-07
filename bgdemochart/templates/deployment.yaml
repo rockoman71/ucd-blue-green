@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webpage-@env@
+  labels:
+    app: bgdemo
+    env: @env@
+spec:
+  selector:
+    matchLabels:
+      app: bgdemo
+      env: @env@
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bgdemo
+        env: @env@
+    spec:
+      containers:
+      - name: bgdemo
+        image: mycluster.icp:8500/devops/bgdemo:v1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: NAME
+          value: IIF
+        - name: backgroundcolor
+          value: @background-color@
+        - name: env
+          value: {{ .Values.helloname }}  
+        ports:
+        - containerPort: 80
