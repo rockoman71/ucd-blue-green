@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: bgdemo
       env: @env@
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: bgdemo
-        image: mycluster.icp:8500/devops/bgdemo:v1
+        image: mycluster.icp:8500/devops/bgdemo:v2
         resources:
           requests:
             cpu: 100m
