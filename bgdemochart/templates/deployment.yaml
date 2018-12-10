@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webpage-@env@
+  name: webpage-@@@env@@@
   labels:
     app: bgdemo
-    env: @env@
+    env: @@@env@@@
 spec:
   selector:
     matchLabels:
       app: bgdemo
-      env: @env@
+      env: @@@env@
   replicas: 3
   template:
     metadata:
       labels:
         app: bgdemo
-        env: @env@
+        env: @@@env@@@
     spec:
       containers:
       - name: bgdemo
@@ -30,7 +30,7 @@ spec:
         - name: NAME
           value: IIF
         - name: backgroundcolor
-          value: @background-color@
+          value: @@@background-color@@@
         - name: env
           value: {{ .Values.helloname }}  
         ports:
