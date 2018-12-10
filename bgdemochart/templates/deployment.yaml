@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: bgdemo
-      env: @@@env@
+      env: @@@env@@@
   replicas: 3
   template:
     metadata:
