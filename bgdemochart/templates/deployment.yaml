@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: bgdemo
       env: @@@env@@@
-  replicas: 3
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
