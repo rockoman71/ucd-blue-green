@@ -1,0 +1,34 @@
+node { 
+    def app
+    def dockerRegistry = 'https://mycluster.icp:8500'
+    def image = 'devops/bgdemohelm'
+    def jenkinsCredentials = 'docker'
+    def gitRepo = "https://github.com/rockoman71/ucd-blue-green.git"
+    
+    stage('Get Source') {
+		   git gitRepo
+	  }
+   
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build(image, "--build-arg ver=${BUILD_NUMBER} ./docker")
+    } 
+   
+    stage('Push image to ICP') {
+            docker.withRegistry(dockerRegistry,jenkinsCredentials) {
+	          app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+	    }
+   }
+
+    stage('Update Helm Chart') {
+           sh "sed -i 's/@tag@/${BUILD_NUMBER}/g' ./bgdemochart/values.yaml"    
+          // sh 'cp Dockerfile2 Dockerfile'
+            
+	    }
+   }
+
+
+}
