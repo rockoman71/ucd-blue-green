@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: bgdemo
-        image: mycluster.icp:8500/devops/bgdemo:7
+        image: {{ .Values.image.repository }}/devops/bgdemo:{{ .Values.image.tag }}
         resources:
           requests:
             cpu: 100m
