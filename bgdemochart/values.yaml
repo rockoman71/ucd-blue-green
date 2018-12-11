@@ -5,8 +5,8 @@ helloname: @@@hello.name@@@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: stable
+  repository: mycluster.icp:8500
+  tag: latest
   pullPolicy: IfNotPresent
 
 nameOverride: ""
