@@ -25,10 +25,39 @@ node {
 
     stage('Update Helm Chart') {
            sh "sed -i 's/@tag@/${BUILD_NUMBER}/g' ./bgdemochart/values.yaml"    
-          // sh 'cp Dockerfile2 Dockerfile'
-            
-	    
+           sh "sed -i 's/@version@/${BUILD_NUMBER}/g' ./bgdemochart/Chart.yaml"                
    }
-
+ stage('UrbanCode create version') {
+   // class: Defines the Pipeline plug-in to define. The UCD Jenkins Pipeline plug-in’s class name is UCDeployPublisher
+   step([$class: 'UCDeployPublisher',
+        siteName: 'ucd',
+	component: [
+            $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
+           componentName: 'Helm Hello World',
+           delivery: [
+                $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
+                pushVersion: '${BUILD_NUMBER}',
+		baseDir: '.',
+                fileIncludePatterns: '/bgdemochart/**/*',
+                fileExcludePatterns: '',                
+                pushDescription: 'Pushed from Jenkins'
+	    ]	
+	]	
+    ])
+  }
+	
+stage('UrbanCode Deploy to Dev') {	
+   step([$class: 'UCDeployPublisher',
+        siteName: 'ucd',
+        deploy: [
+                $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
+                deployApp: 'Helm Hello World App',
+                deployEnv: 'Dev',
+                deployProc: 'Deploy Helm Chart',            
+                deployVersions: 'Helm Hello World:${BUILD_NUMBER}',
+		deployOnlyChanged: false
+        ]		
+    ])
+  }
 
 }
