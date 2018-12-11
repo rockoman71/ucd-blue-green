@@ -27,7 +27,7 @@ node {
            sh "sed -i 's/@tag@/${BUILD_NUMBER}/g' ./bgdemochart/values.yaml"    
           // sh 'cp Dockerfile2 Dockerfile'
             
-	    }
+	    
    }
 
 
