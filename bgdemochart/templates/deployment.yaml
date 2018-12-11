@@ -28,7 +28,7 @@ spec:
         - name: GET_HOSTS_FROM
           value: dns
         - name: NAME
-          value: IIF
+          value: World
         - name: backgroundcolor
           value: @@@background-color@@@
         - name: env
