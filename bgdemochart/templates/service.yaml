@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: bg-load-balancer
   labels:
-    app: bgdemo
+    app: bgdemohelm
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: bgdemo
+    app: bgdemohelm
     env: @@@env@@@
