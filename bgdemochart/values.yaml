@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: mycluster.icp:8500
-  tag: 9
+  tag: @tag@
   pullPolicy: IfNotPresent
 
 nameOverride: ""
