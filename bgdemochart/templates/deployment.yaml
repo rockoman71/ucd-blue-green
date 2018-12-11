@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   name: webpage-@@@env@@@
   labels:
-    app: bgdemo
+    app: bgdemohelm
     env: @@@env@@@
 spec:
   selector:
     matchLabels:
-      app: bgdemo
+      app: bgdemohelm
       env: @@@env@@@
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: bgdemo
+        app: bgdemohelm
         env: @@@env@@@
     spec:
       containers:
-      - name: bgdemo
-        image: {{ .Values.image.repository }}/devops/bgdemo:{{ .Values.image.tag }}
+      - name: bgdemohelm
+        image: {{ .Values.image.repository }}/devops/bgdemohelm:{{ .Values.image.tag }}
         resources:
           requests:
             cpu: 100m
