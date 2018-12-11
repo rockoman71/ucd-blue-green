@@ -37,8 +37,8 @@ node {
            delivery: [
                 $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
                 pushVersion: '${BUILD_NUMBER}',
-		baseDir: 'bgdemochart',
-                fileIncludePatterns: '',
+		baseDir: '${WORKSPACE}/bgdemochart',
+                fileIncludePatterns: '**/*',
                 fileExcludePatterns: '',                
                 pushDescription: 'Pushed from Jenkins'
 	    ]	
