@@ -7,10 +7,10 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     html = "<html><head>" \
-           "<title>IBM Demo DevOps</title></head>" \
+           "<title>IBM Cloud Private + dev/test/delivery POT</title></head>" \
            "<body style='background-color:{backgroundcolor};'>" \
-           "<p><font size='10'>IBM DevOps Demo - UrbanCode Deploy & IBM Cloud Private!!<br/></font></p>" \
-           "<p><font size='6'>Hello {name}!<br/></font></p>" \
+           "<p><font size='10'>IBM DevOps PoT - Transformation Advisor, Microclimate, UrbanCode Deploy & Velocity<br/></font></p>" \
+           "<br><a target='_blank' rel='noopener' href='http://conf.bluedemos.com/app/home/session/3834/7o7mdu0zli69U8ZCBTKKFWZ1UV7HZSY80hiwmolqohwfkw341k7eel6dun23gjs8'>DevOps ICP PoT Link</a><br>" \
            "<p><font size='6'><b>Hostname:</b> {hostname}<br/></font></p>" \
            "<p><font size='6'><b>Environment:</b> {env}<br/></font></p>" \
            "<p><font size='6'><b>Version:</b> {version}<br/></font></p>" \
