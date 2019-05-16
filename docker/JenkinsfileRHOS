@@ -1,6 +1,6 @@
 node { 
     def app
-    def dockerRegistry = 'docker-registry-default.apps.okd.robobob.ca'
+    def dockerRegistry = 'https://docker-registry-default.apps.okd.robobob.ca'
     def image = 'devops/bgdemo'
     def jenkinsCredentials = 'dockerOpenshift'
     def gitRepo = "https://github.com/rockoman71/ucd-blue-green.git"
