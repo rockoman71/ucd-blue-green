@@ -1,1 +1,62 @@
-test
+node { 
+    def app
+    def dockerRegistry = 'docker-registry-default.apps.okd.robobob.ca'
+    def image = 'devops/bgdemo'
+    def jenkinsCredentials = 'dockerOpenshift'
+    def gitRepo = "https://github.com/rockoman71/ucd-blue-green.git"
+    
+    stage('Get Source') {
+		   git gitRepo
+	  }
+   
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+     	//sh "sed -i "'s/ver/ver1/g'" Dockerfile"    
+	//sh 'cp Dockerfile2 Dockerfile'    
+        app = docker.build(image, "--build-arg ver=${BUILD_NUMBER} ./docker")
+    } 
+   
+    stage('Push image to OpenShift') {
+            docker.withRegistry(dockerRegistry,jenkinsCredentials) {
+	          app.push("${env.BUILD_NUMBER}")
+                  app.push("latest")
+	    }
+   }
+
+  stage('UrbanCode create version') {
+   // class: Defines the Pipeline plug-in to define. The UCD Jenkins Pipeline plug-in’s class name is UCDeployPublisher
+   step([$class: 'UCDeployPublisher',
+        siteName: 'ucd',
+	component: [
+            $class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
+           componentName: 'bgdemo OpenShift',
+           delivery: [
+                $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
+                pushVersion: '${BUILD_NUMBER}',
+		baseDir: '.',
+                fileIncludePatterns: 'README.md',
+                fileExcludePatterns: '',
+                pushProperties: 'dockerImageTag=${BUILD_NUMBER}\ndockerImageId=x',
+                pushDescription: 'Pushed from Jenkins'
+	    ]	
+	]	
+    ])
+  }
+	
+stage('UrbanCode Deploy to Dev') {	
+   step([$class: 'UCDeployPublisher',
+        siteName: 'ucd',
+        deploy: [
+                $class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
+                deployApp: 'BG OpenShift Demo',
+                deployEnv: 'Dev',
+                deployProc: 'Deploy Application from YAML',            
+                deployVersions: 'Blue-Green Demo-bgdemo:${BUILD_NUMBER}\nbgdemo Webpage:2.2',
+		//deployVersions: 'Blue-Green Demo-bgdemo:${BUILD_NUMBER}\nbgdemo Webpage:latest',
+                deployOnlyChanged: false
+        ]		
+    ])
+  }
+}
+
