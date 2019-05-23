@@ -4,19 +4,20 @@ metadata:
   name: webpage-@env@
   labels:
     app: bgdemo
-    env: @env@
-    loadbalance: @lb@
+    env: @env@    
 spec:
   selector:
     matchLabels:
       app: bgdemo
       env: @env@
+      envgroup: @envgroup@
   replicas: 1
   template:
     metadata:
       labels:
         app: bgdemo
         env: @env@
+        envgroup: @envgroup@
     spec:
       containers:
       - name: bgdemo
