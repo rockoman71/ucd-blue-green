@@ -5,6 +5,7 @@ metadata:
   labels:
     app: bgdemo
     env: @env@
+    loadbalance: @lb@
 spec:
   selector:
     matchLabels:
