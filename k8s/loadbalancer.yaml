@@ -10,4 +10,6 @@ spec:
   - port: 80
   selector:
     app: bgdemo
+    loadbalance: true
     env: @env@
+    
