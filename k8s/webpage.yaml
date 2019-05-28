@@ -53,5 +53,6 @@ spec:
   selector:
     app: bgdemo
     env: @env@
+    envgroup: @envgroup@
 
 
