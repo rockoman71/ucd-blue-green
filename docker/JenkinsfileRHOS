@@ -21,7 +21,7 @@ node {
          sh """
 	 oc login https://okd.robobob.ca:8443 --token=z2yOkAeN3vDG1F9zQScFNjfJ2wyYZ79-3p2SQ3HbBII --insecure-skip-tls-verify
 	 docker tag bg-demo/bgdemo docker-registry-default.apps.okd.robobob.ca/bg-demo/bgdemo:${BUILD_NUMBER}
-         docker login -u openshift -p $(oc whoami -t) docker-registry-default.apps.okd.robobob.ca
+         docker login -u openshift -p z2yOkAeN3vDG1F9zQScFNjfJ2wyYZ79-3p2SQ3HbBII docker-registry-default.apps.okd.robobob.ca
 	 docker push docker-registry-default.apps.okd.robobob.ca/bg-demo/bgdemo:${env.BUILD_NUMBER}
 	"""
          /*  docker.withRegistry(dockerRegistry,jenkinsCredentials) {
